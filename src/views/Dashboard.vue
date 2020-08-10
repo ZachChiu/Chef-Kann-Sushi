@@ -1,12 +1,14 @@
 <template>
   <div class="backstage">
     <nav>
-      <router-link to="/">返回前台</router-link>
-      <router-link to="/admin" :class="{active:pageLocate == 'products'}" @click="changeLocate()" >產品列表</router-link>
-      <router-link to="/admin/orders" :class="{active:pageLocate == 'orders'}" @click="changeLocate()" >訂單列表</router-link>
-      <router-link to="/admin/coupons" :class="{active:pageLocate == 'coupons'}" @click="changeLocate()" >優惠卷列表</router-link>
-      <router-link to="/admin/storage" :class="{active:pageLocate == 'storage'}" @click="changeLocate()" >檔案列表</router-link>
-      <router-link to="/login">登出</router-link>
+      <ul>
+        <li><router-link to="/">返回前台</router-link></li>
+        <li @click="pageLocate = 'products'"><router-link to="/admin" :class="{active:pageLocate == 'products'}">產品列表</router-link></li>
+        <li @click="pageLocate = 'orders'"><router-link to="/admin/orders" :class="{active:pageLocate == 'orders'}">訂單列表</router-link></li>
+        <li @click="pageLocate = 'coupons'"><router-link to="/admin/coupons" :class="{active:pageLocate == 'coupons'}">優惠卷列表</router-link></li>
+        <li @click="pageLocate = 'storage'"><router-link to="/admin/storage" :class="{active:pageLocate == 'storage'}">檔案列表</router-link></li>
+        <li><router-link to="/login">登出</router-link></li>
+      </ul>
     </nav>
     <main>
       <header>
@@ -78,9 +80,6 @@ export default {
     }
   },
   methods: {
-    changeLocate: function () {
-      this.pageLocate = 'coupons'
-    },
     closeModal: function () {
     }
   }
