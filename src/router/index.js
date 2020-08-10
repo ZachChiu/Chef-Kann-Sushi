@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Layout from '../views/Layout.vue'
 
 Vue.use(VueRouter)
 
@@ -10,15 +10,14 @@ const routes = [
     redirect: '/'
   },
   {
-    path: '/admin',
-    redirect: '/admin/products'
-  },
-  {
     path: '/',
-    name: 'Home',
-    component: Home,
+    component: Layout,
     children:
     [
+      {
+        path: '',
+        component: () => import('../views/Home.vue')
+      },
       {
         path: '/about',
         component: () => import('../views/About.vue')
@@ -47,6 +46,11 @@ const routes = [
     children:
     [
       {
+        path: '',
+        name: 'admin',
+        component: () => import('../views/admin/Products.vue')
+      },
+      {
         path: 'coupons',
         component: () => import('../views/admin/Coupons.vue')
       },
@@ -54,10 +58,7 @@ const routes = [
         path: 'orders',
         component: () => import('../views/admin/Orders.vue')
       },
-      {
-        path: 'products',
-        component: () => import('../views/admin/Products.vue')
-      },
+
       {
         path: 'storage',
         component: () => import('../views/admin/Storage.vue')
