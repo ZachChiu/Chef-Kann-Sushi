@@ -1,5 +1,5 @@
 <template>
   <div>
-    <p>這是前台關於列表</p>
+    <p>這是前台購物車列表</p>
   </div>
 </template>

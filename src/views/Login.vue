@@ -1,5 +1,5 @@
 <template>
   <div>
-    <p>這是前台關於列表</p>
+    <p>這是前台登入列表</p>
   </div>
 </template>
