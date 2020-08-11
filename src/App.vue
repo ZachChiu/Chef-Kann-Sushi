@@ -11,7 +11,6 @@ a{
 *{
   font-family: 微軟正黑體;
   text-align: center;
-  transition: all 0.2s;
 }
 button,input{
   outline: none;

@@ -1,6 +1,6 @@
 <template>
   <div class="backstage">
-    <nav>
+    <aside>
       <ul>
         <li><router-link to="/">返回前台</router-link></li>
         <li @click="pageLocate = 'products'"><router-link to="/admin" :class="{active:pageLocate == 'products'}">產品列表</router-link></li>
@@ -9,7 +9,7 @@
         <li @click="pageLocate = 'storage'"><router-link to="/admin/storage" :class="{active:pageLocate == 'storage'}">檔案列表</router-link></li>
         <li><router-link to="/login">登出</router-link></li>
       </ul>
-    </nav>
+    </aside>
     <main>
       <header>
         <a class="burger" href="#"><font-awesome-icon  :icon="['fas', 'bars']"/></a>
@@ -24,12 +24,13 @@
   box-sizing: border-box;
 }
 .backstage {
-  nav {
+  aside {
     position:fixed ;
     width: 10%;
     background: rgb(68, 68, 68);
     height:100vh;
     a {
+      transition: all 0.3s;
       text-align: center;
       padding: 20px 0;
       display: block;
