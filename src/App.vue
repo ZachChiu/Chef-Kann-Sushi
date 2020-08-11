@@ -16,4 +16,7 @@ a{
 button,input{
   outline: none;
 }
+button{
+  cursor: pointer;
+}
 </style>
