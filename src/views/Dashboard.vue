@@ -12,7 +12,7 @@
     </nav>
     <main>
       <header>
-        <font-awesome-icon class="burger" :icon="['fas', 'bars']"/>
+        <a class="burger" href="#"><font-awesome-icon  :icon="['fas', 'bars']"/></a>
         <h2>乾師傅壽司</h2>
       </header>
       <router-view></router-view>
@@ -54,6 +54,9 @@
       font-size: 26px;
       font-weight: bold;
       position: relative;
+      a{
+        color: white;
+      }
     }
     .burger{
       display: none;
@@ -62,11 +65,6 @@
       left: 15px;
     }
   }
-  .delModal{
-    position: fixed;
-    top:10%;
-    left: 20%;
-  }
 }
 </style>
 
@@ -74,13 +72,7 @@
 export default {
   data () {
     return {
-      pageLocate: 'products',
-      delModal: '',
-      tempProduct: {}
-    }
-  },
-  methods: {
-    closeModal: function () {
+      pageLocate: 'products'
     }
   }
 }
