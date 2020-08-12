@@ -43,7 +43,7 @@
       <div class="modal-body">
         是否刪除
         <strong class="text-danger">{{ tempCoupons.title }}</strong>
-        <br>商品刪除後將無法恢復
+        <br>優惠卷刪除後將無法恢復
       </div>
       <footer class="modal-footer">
         <button type="button" class="btn cancelBtn" @click="closeModal">
@@ -62,7 +62,7 @@
         </button>
       </header>
       <div class="modal-body">
-          <div class="body-right">
+          <div class="body-center">
             <div class="form-group">
               <label for="title">標題</label>
               <input id="title" v-model.trim="tempCoupons.title" type="text" class="form-control"
@@ -75,12 +75,12 @@
             </div>
             <div class="form-group">
               <label for="title">到期日</label>
-              <input id="title" v-model.trim="tempCoupons.due_date" type="date" class="form-control"
+              <input id="title" v-model.trim="due_date" type="date" class="form-control"
                 placeholder="請輸入標題" required>
             </div>
             <div class="form-group">
               <label for="title">到期時間</label>
-              <input id="title" v-model.trim="tempCoupons.due_time" type="time" class="form-control"
+              <input id="title" v-model.trim="due_time" type="time" class="form-control"
                 placeholder="請輸入標題" required>
             </div>
             <div class="form-group">
@@ -125,11 +125,12 @@ export default {
   data () {
     return {
       coupons: {},
+      roomStatus: '',
       tempCoupons: {},
       loadIcon: false,
       linkInfo: {
         uuid: '5155a807-b2d4-4641-9d36-faaaed6c8085',
-        token: '3a7hkHfxDGg844VDa3lw4g7GlYurHi8iw73ssauSmfxW92AR4Tjrhoi4jb5F'
+        token: 'bKcaMh9nth49Q1lHBixxii0FHLGoiiaPmh0C0OaKbfCMcq8m538Yk5W94tfO'
       },
       due_date: '',
       due_time: ''
@@ -154,7 +155,9 @@ export default {
         this.$http(config)
           .then((res) => {
             console.log(res)
-            this.tempCoupons = res.data.data
+            this.tempCoupons = { ...res.data.data }
+            const dateLine = this.tempCoupons.deadline.datetime.split(' ');
+            [this.due_date, this.due_time] = dateLine
             $('.editModal').show()
             $('.background').show()
           })
@@ -187,6 +190,32 @@ export default {
         })
     },
     updateCoupons: function () {
+      const config = {
+        headers: { Authorization: `Bearer ${this.linkInfo.token}` }
+      }
+      const deadline = `${this.due_date} ${this.due_time} `
+      if (this.roomStatus === 'new') {
+        if (this.tempCoupons.title === undefined || deadline === undefined || this.tempCoupons.code === undefined || this.tempCoupons.percent === undefined) {
+          alert('請輸入完整資料')
+          return
+        } else {
+          config.url = `https://course-ec-api.hexschool.io/api/${this.linkInfo.uuid}/admin/ec/coupon`
+          config.method = 'post'
+        }
+      } else if (this.roomStatus === 'edit') {
+        config.url = `https://course-ec-api.hexschool.io/api/${this.linkInfo.uuid}/admin/ec/coupon/${this.tempCoupons.id}`
+        config.method = 'patch'
+      }
+      this.loadIcon = true
+      config.data = this.tempCoupons
+      this.tempCoupons.deadline_at = deadline
+      this.$http(config)
+        .then((res) => {
+          this.getData()
+        })
+        .catch((error) => {
+          console.log(error); alert('發生一些不知名狀況'); this.loadIcon = false
+        })
     },
     getData: function (page = 1) {
       const config = {

@@ -244,6 +244,9 @@
         width: 66.666667%;
         margin: 0 0 0 15px;
       }
+      .body-center{
+        width: 100%;
+      }
       label {
           display: inline-block;
           margin-bottom: 0.5rem;
