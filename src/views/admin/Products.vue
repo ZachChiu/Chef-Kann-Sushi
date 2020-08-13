@@ -1,6 +1,9 @@
 <template>
   <div class="productsBack">
-    <div class="mainHeader">
+        <loading :active.sync="isLoading"
+        :loader="loader"
+        :color="color"></loading>
+     <div class="mainHeader">
       <h2>產品管理</h2>
       <a href="#" @click.prevent="openModal('new')">新增產品</a>
     </div>
@@ -22,8 +25,8 @@
           <td> {{ item.origin_price | commaFormat | priceFormat}} </td>
           <td> {{ item.price | commaFormat | priceFormat}} </td>
           <td>
-            <span v-if="item.enabled" class="text-success">啟用</span>
-            <span v-else>未啟用</span>
+            <span v-if="item.enabled" class="text-enabled">啟用</span>
+            <span v-else class="text-disabled">未啟用</span>
           </td>
           <td>
             <div class="btn-group">
@@ -176,13 +179,14 @@
 
 <script>
 /* global $ */
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   data () {
     return {
       delModal: false,
       loadIcon: false,
-      loading: false,
       tempProduct: {
         imageUrl: []
       },
@@ -190,11 +194,17 @@ export default {
       pageInfo: {},
       linkInfo: {
         uuid: '5155a807-b2d4-4641-9d36-faaaed6c8085',
-        token: '3a7hkHfxDGg844VDa3lw4g7GlYurHi8iw73ssauSmfxW92AR4Tjrhoi4jb5F'
+        token: 'Ux5ISHWMSCd6fbze5neUq9u7sxcBIZWxjs1pTUJIDdmvtx0SMmux9NCn8Txw'
       },
       fileUploading: false,
-      roomStatus: 'new'
+      roomStatus: 'new',
+      isLoading: false,
+      color: '#3094bb',
+      loader: 'dots'
     }
+  },
+  components: {
+    Loading
   },
   created () {
     this.getData()
@@ -224,6 +234,7 @@ export default {
         $('.delModal').show()
         $('.background').show()
       } else if (name === 'edit') {
+        this.isLoading = true
         this.roomStatus = 'edit'
         const config = {
           url: `https://course-ec-api.hexschool.io/api/${this.linkInfo.uuid}/admin/ec/product/${item.id}`,
@@ -241,8 +252,12 @@ export default {
             this.tempProduct = Object.assign({}, res.data.data)
             $('.editModal').show()
             $('.background').show()
+            this.isLoading = false
           })
-          .catch((error) => { console.log(error) })
+          .catch((error) => {
+            console.log(error)
+            this.isLoading = false
+          })
       } else if (name === 'new') {
         this.roomStatus = 'new'
         $('.editModal').show()
@@ -313,6 +328,7 @@ export default {
         })
     },
     getData: function (page = 1) {
+      this.isLoading = true
       const config = {
         url: `https://course-ec-api.hexschool.io/api/${this.linkInfo.uuid}/admin/ec/products?page=${page}`,
         method: 'get',
@@ -325,6 +341,7 @@ export default {
           this.pageInfo = res.data.meta.pagination
           this.closeModal()
           this.loadIcon = false
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error)
