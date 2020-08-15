@@ -8,12 +8,9 @@
 a{
   text-decoration: none;
 }
-*{
-  font-family: 微軟正黑體;
-  text-align: center;
-}
 button,input{
   outline: none;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 button{
   cursor: pointer;

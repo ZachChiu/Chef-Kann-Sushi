@@ -24,15 +24,19 @@
   box-sizing: border-box;
 }
 .backstage {
+  font-family: 'Noto Sans TC', sans-serif;
   aside {
     position:fixed ;
     width: 10%;
     background: rgb(68, 68, 68);
     height:100vh;
+    ul{
+      margin-top: 65.5px;
+    }
     a {
       transition: all 0.3s;
       text-align: center;
-      padding: 20px 0;
+      padding: 30px 0;
       display: block;
       color: white;
       background: rgb(68, 68, 68);
@@ -91,12 +95,12 @@
     }
   }
   .btn{
-    padding:5px 8px;
     font-weight: 600;
     padding: .375rem .75rem;
     line-height: 1.5;
     border-radius: .25rem;
     transition: all 0.25s;
+    border: 0;
   }
   table{
     width: 100%;
@@ -116,6 +120,7 @@
       }
     }
     tbody{
+      color: rgb(77, 77, 77);
       tr{
         border-bottom: 1px solid #dee2e6;
       }
@@ -194,7 +199,6 @@
       border-top: 1px solid gray;
     }
     .cancelBtn{
-      border: 2px solid rgb(129, 129, 129);
       color: rgb(129, 129, 129);
       &:hover{
         background: rgb(129, 129, 129);
@@ -202,7 +206,6 @@
       }
     }
     .checkCancelBtn{
-      border: 2px solid rgb(240, 67, 67);
       margin-left: 10px;
       color: #fff;
       background-color: rgb(240, 67, 67);
@@ -210,7 +213,6 @@
       margin-left: 10px;
       &:hover{
         background: rgb(185, 38, 38);
-        border: 2px solid rgb(185, 38, 38);
       }
     }
     .loadIcon{
@@ -307,7 +309,6 @@
         padding: 1.5rem 1rem;
         border-top: 1px solid #dee2e6;
       .cancelBtn{
-        border: 2px solid rgb(129, 129, 129);
         color: rgb(129, 129, 129);
         &:hover{
           background: rgb(129, 129, 129);
@@ -315,7 +316,6 @@
        }
       }
       .checkBtn{
-        border: 2px solid #007bff;
         margin-left: 10px;
         color: #fff;
         background-color: #007bff;
@@ -323,7 +323,6 @@
         margin-left: 10px;
         &:hover{
           background: #0d4d92;
-          border: 2px solid #0d4d92;
           color: white;
         }
       }
